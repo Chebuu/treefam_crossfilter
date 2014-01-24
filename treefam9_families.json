@@ -1,0 +1,8 @@
+[
+{"modelName":"TF105088", "hgncSymbol":"CYP4", "geneCount":1400, "percentIdentity":10,"alnLength":7343,"rootTaxon":"Eukaryota","description":"cytochrome P450, family 4"},
+{"modelName":"TF105310", "hgncSymbol":"WNT", "geneCount":1300, "percentIdentity":20,"alnLength":4109,"rootTaxon":"Metazoa","description":"wingless-type MMTV integration site family"},
+{"modelName":"TF106341", "hgncSymbol":"TBX", "geneCount":1200, "percentIdentity":40,"alnLength":5890,"rootTaxon":"Metazoa","description":"T-box transcription factor"},
+{"modelName":"TF105087", "hgncSymbol":"CYP3/5A", "geneCount":1100, "percentIdentity":31,"alnLength":5892,"rootTaxon":"Eukaryota","description":"cytochrome P450, family 3/5, subfamily A"},
+{"modelName":"TF105391", "hgncSymbol":"ITGA", "geneCount":1051, "percentIdentity":28,"alnLength":8041,"rootTaxon":"Metazoa","description":"integrin, alpha"},
+{"modelName":"TF102023", "hgncSymbol":"CASP", "geneCount":948, "percentIdentity":31,"alnLength":3333,"rootTaxon":"Metazoa","description":"caspase family, apoptosis-related cysteine protease"}
+]
