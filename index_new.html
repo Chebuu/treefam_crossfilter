@@ -7,6 +7,8 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="http://colmmcdonnell.github.io/ppr/css/bootstrap.min.css" rel="stylesheet"> -->
+
     <link rel="stylesheet" type="text/css" href="css/dc.css"/>
 
 </head>
@@ -35,56 +37,112 @@
 </div> 
 <br> -->
 <h3>TreeFam families</h3>
-Example queries:
-<ul>
- <li>Show me all <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families</li>
- <li>Show me all families with <a href="javascript:familiesfilter(109)">~1 gene/species</a></li>
- <li>Show me something else ....</li>
- </ul>
- 
+There are <span id="total_families"></span> families in this dataset. Click and drag and watch the graphs move and then when that gets old see ....
+<ol>
+ <li>How many <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families are there?</li>
+ <li>Show me all families with <a href="javascript:familiesfilter([90,120])">~1 gene/species</a></li>
+ <li>Which are the <a href="javascript:alignmentfilter([80, 100])">highly-conserved</a> families (alignment conservation >= 85%)?</li>
+ </ol>
+ <hr>
+ <div class="dc-data-count">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                    </div>        
 <div class="container">
     <div class="row clearfix">
+
+                <!-- <div class="col-md-12 column" id="fluctuation-chart">
+                        <span class="chart-title">Family size</span>
+                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                        <div class="clearfix"></div>
+                 --></div>
         <div class="col-md-8 column">
+            <h3>Gene Families</h3>
+            <div id="fluctuation-chart">
+                        <span class="chart-title">Family size</span><br>
+                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                        <div class="clearfix"></div>
+                </div>
             <div class="row clearfix">
-                <div id="fluctuation-chart">
+                <!-- <div id="fluctuation-chart">
                         <strong>Family size</strong>
                         <span class="reset" style="display: none;">range: <span class="filter"></span></span>
                         <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                         <div class="clearfix"></div>
+                </div> -->
+                <div class="col-md-6 column">
+                            <div id="conservation-chart" >
+                            <span class="chart-title">Alignment conservation</span><br>
+                            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                            </div>
                 </div>
-                <div class="col-md-5 column">
-                    <div id="conservation-chart" style="width:110px;">Alignment conservation
+                
+                
+                <div class="col-md-6 column" id="species_count-chart">
+                    <span class="chart-title">No of species</span><br>
                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                    </div>
+                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
                 </div>
-                <div class="col-md-2 column">
-                    <div id="pie5NetworkSize"    style="width:110px;">Evolutionary speed</div>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="col-md-6 column">
-                        <div id="modelOrganism_chart"    style="width:110px;"></div>
-                </div>
-                <div class="col-md-6 column">
-                    <div id="domain_coverage-chart"    style="width:110px;">Pfam domain coverage
+                <!-- <div class="col-md-6 column" id="Alignment_length-chart" >
+                        <span class="chart-title">Species counterage</span>
                         <span class="reset" style="display: none;">range: <span class="filter"></span></span>
                         <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                         <div class="clearfix"></div>
-                    </div>
+                </div> -->
+            </div>
+            <h3>Model organism</h3>
+            <div class="row clearfix">
+                
+                <div class="col-md-4 column" id="human_genes-chart">
+                    <span class="chart-title">Human genes</span><br>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                 </div>
+                <div class="col-md-4 column" id="mouse_genes-chart">
+                    <span class="chart-title">Mouse genes</span><br>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+                <div class="col-md-4 column" id="zebrafish_genes-chart">
+                    <span class="chart-title">Zebrafish genes</span><br>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+
+
+
+                <!-- <span class="chart-title">Evolutionary speed</span>
+                <div class="col-md-6 column" id="pie5NetworkSize"></div> -->
+                <div class="clearfix"></div>
+                <div id="monthly-move-chart" class="dc-chart col-md-8 column">
+                    <strong>Model organisms</strong>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:moveChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+                <div class="row">
+                    <div id="monthly-volume-chart"> </div>
+                    <p class="muted pull-right" style="margin-right: 15px;">select a range of no of model orga genes/family</p>
+                </div>
+
             </div>
             
+        
 
+        <div class="clearfix"></div>
 
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <div class="dc-data-count">
+            <!-- <div class="row clearfix"> -->
+                <div class="col-md-8 column">
+                   <!--  <div class="dc-data-count">
                         <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
-                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a><br><br><br><br>
-                    </div>        
-                <table id="dc-data-familiestable">
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                    </div>         -->
+
+                <table class="dc-data-table table table-hover table-condensed table-striped dc-chart" id="dc-data-familiestable">
                 <thead>
                 <tr class="header">
                     <th>model name</th>
@@ -98,18 +156,19 @@ Example queries:
                 </table>
                     <!-- <div id="families-bubble-chart"></div>         -->
                 </div>
-            </div>
              
         </div>
         <div class="col-md-4 column">
                 <div id="org-chart">
-                    <strong>Taxonomic birth</strong>
+                    <span class="chart-title">Taxonomic birth</span>
                     <a  href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">(reset)</a>
                     <div class="clearfix"></div>
                 </div>   
         </div>
+
     </div>
 
+            </div>
 </div>
 </div>
 
@@ -119,592 +178,20 @@ Example queries:
 <script type="text/javascript" src="http://square.github.io/crossfilter/crossfilter.v1.min.js"></script>
 
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <!-- <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="js/dc.js"></script>
 <!-- <script type="text/javascript" src="http://jeroenooms.github.io/dashboard/snack/lib/dc/dc.min.js"></script> -->
 
 <script type="text/javascript" src="js/melt.js"></script>
 <script type="text/javascript" src="js/colorbrewer.js"></script>
 
-<script type="text/javascript">
 
-//d3.json("treefam9_families.json_full", function (treefam_data) {
 
-d3.json("test.json", function (treefam_data) {
-
-
-function print_filter(filter) {
-    var f = eval(filter);
-    if (typeof (f.length) != "undefined") {} else {}
-    if (typeof (f.top) != "undefined") {
-        f = f.top(Infinity);
-    } else {}
-    if (typeof (f.dimension) != "undefined") {
-        f = f.dimension(function (d) {
-            return "";
-        }).top(Infinity);
-    } else {}
-    console.log(filter + "(" + f.length + ") = " + JSON.stringify(f).replace("[", "[\n\t").replace(/}\,/g, "},\n\t").replace("]", "\n]"));
-}
-function getvalues(d){
-    var str=d.key.getDate() + "/" + (d.key.getMonth() + 1) + "/" + d.key.getFullYear()+"\n";
-    var key_filter = dateDim.filter(d.key).top(Infinity);
-    var total=0
-    key_filter.forEach(function(a) {
-        str+=a.status+": "+a.hits+" Hit(s)\n";
-        total+=a.hits;
-    });
-
-    str+="Total:"+total;
-    //remove filter so it doesn't effect the graphs,
-    //this is the only filter so we can do this
-    dateDim.filterAll();
-    return str;
-} 
-
-
-var data = [
-        {date: "12/27/2012", http_404: 2, http_200: 190, http_302: 100},
-        {date: "12/28/2012", http_404: 2, http_200: 10, http_302: 100},
-        {date: "12/29/2012", http_404: 1, http_200: 300, http_302: 200},
-        {date: "12/30/2012", http_404: 2, http_200: 90, http_302: 0},
-        {date: "12/31/2012", http_404: 2, http_200: 90, http_302: 0},
-        {date: "01/01/2013", http_404: 2, http_200: 90, http_302: 0},
-        {date: "01/02/2013", http_404: 1, http_200: 10, http_302: 1},
-        {date: "01/03/2013", http_404: 2, http_200: 90, http_302: 0},
-        {date: "01/04/2013", http_404: 2, http_200: 90, http_302: 0},
-        {date: "01/05/2013", http_404: 2, http_200: 90, http_302: 0},
-        {date: "01/06/2013", http_404: 2, http_200: 200, http_302: 1},
-        {date: "01/07/2013", http_404: 1, http_200: 200, http_302: 100}
-        ];
-
-
-        
-var pie5NetworkSize = dc.pieChart("#pie5NetworkSize");
-var rootChart = dc.rowChart("#org-chart");
-// var familiesBubbleChart  = dc.bubbleChart("#families-bubble-chart"); 
-//var familieslineChart  = dc.lineChart("#chart-line-families"); 
-var fluctuationChart = dc.barChart("#fluctuation-chart");
-var conservationChart = dc.barChart("#conservation-chart");
-
-var modelOrganismChart = dc.rowChart("#modelOrganism_chart");
-
-var domainCoverageChart = dc.barChart("#domain_coverage-chart");
-
-
-// var treefam_data = [
-// {"modelName":"TF105088", "hgncSymbol":"CYP4", "geneCount":1362, "percentIdentity":33,"alnLength":7343,"rootTaxon":"Eukaryota","description":"cytochrome P450, family 4", "function_cat": "A", "human_genes": 3, "mouse_genes":1 , "modelOrga" : "Mouse"},
-// {"modelName":"TF105310", "hgncSymbol":"WNT", "geneCount":289, "percentIdentity":53,"alnLength":4109,"rootTaxon":"Metazoa","description":"wingless-type MMTV integration site family", "function_cat": "B", "human_genes": 3, "mouse_genes":0, "modelOrga" : "Human"},
-// {"modelName":"TF105312", "hgncSymbol":"WNTA", "geneCount":589, "percentIdentity":13,"alnLength":4109,"rootTaxon":"Metazoa","description":"wingless-type MMTV integration site family", "function_cat": "B", "human_genes": 3, "mouse_genes":4, "modelOrga" : "Human&Mouse"},
-// {"modelName":"TF105313", "hgncSymbol":"WNTA", "geneCount":189, "percentIdentity":23,"alnLength":4109,"rootTaxon":"Vertebrates","description":"wingless-type MMTV integration site family", "function_cat": "B", "human_genes": 2, "mouse_genes":0, "modelOrga" : "Human&Mouse"},
-// {"modelName":"TF105314", "hgncSymbol":"WNTA", "geneCount":589, "percentIdentity":53,"alnLength":4109,"rootTaxon":"Metazoa","description":"wingless-type MMTV integration site family", "function_cat": "B", "human_genes": 3, "mouse_genes":3, "modelOrga" : "Human&Mouse"},
-// {"modelName":"TF105315", "hgncSymbol":"WNTA", "geneCount":789, "percentIdentity":193,"alnLength":4109,"rootTaxon":"Vertebrates","description":"wingless-type MMTV integration site family", "function_cat": "C", "human_genes": 0, "mouse_genes":2, "modelOrga" : "Human"},
-// ];
-
-var ndx_treefam = crossfilter(treefam_data); 
-var modelDim  = ndx_treefam.dimension(function(d) {return d.geneCount;});
-//print_filter("modelDim");    
-
-var functionDim = modelDim.group().reduceSum(function (d) {return d.alnLength;});
-//print_filter("functionDim");    
-
-var max_gene_count = d3.max(treefam_data, function(d) { return +d.geneCount;} );
-var max_conservation = d3.max(treefam_data, function(d) { return +d.percentIdentity;} );
-var max_coverage = d3.max(treefam_data, function(d) { return +d.coverage;} );
-
-treefam_data.forEach(function(d,i){
-
-    if(Number(d.percentIdentity) == 0 || isNaN(Number(d.percentIdentity))){
-            d.percentIdentity_t = "?";
-        }
-        else if(Number(d.percentIdentity) < 30) {
-            d.percentIdentity_t = "slow";
-        }
-        else if(Number(d.percentIdentity) >= 30 && Number(d.percentIdentity) < 60) {
-            d.percentIdentity_t = "medium";
-        }
-        else if(Number(d.percentIdentity) >= 60) {
-            d.percentIdentity_t = "fast";
-        }
-
-    // put into gene size bin
-        if(d.geneCount){
-            d.numberClass = Math.round(d.geneCount *  100 / max_gene_count);
-           // var test;
-        }
-        d.domain_coverage = Math.floor(Math.random() * 100) + 1;
-
-        d.modelOrga = "";
-        ["human_genes", "mouse_genes", "zebrafish_genes", "plant_genes"].map(function(item){
-            if(item === undefined || item === "undefined"){return}
-            if(d[item] && d[item] >0 ){
-                if(!d.modelOrga){
-                    d.modelOrga = item.replace("_genes","_");
-                }
-                else{
-                    d.modelOrga += item.replace("_genes","_");
-                }
-            }
-            else{
-                var test;
-            }
-        });
-
-});
-
-var all = ndx_treefam.groupAll();
-
-dc.dataCount(".dc-data-count")
-        .dimension(ndx_treefam)
-        .group(all);
-
-
-var count_percentIdentityDimension = ndx_treefam.dimension(function(d){ return d.percentIdentity_t; });
-var count_percentIdentityGroup = count_percentIdentityDimension.group();
-
-pie5NetworkSize.width(90).height(90).radius(40).dimension(count_percentIdentityDimension).group(count_percentIdentityGroup).minAngleForLabel(0);
-
-var conservation = ndx_treefam.dimension(function (d) {return d.percentIdentity;});
-var conservationGroup = conservation.group();
-
-
-conservationChart.width(350)
-        .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 40})
-        .dimension(conservation)
-        .group(conservationGroup)
-        .elasticY(true)
-        // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-        .centerBar(true)
-        // (optional) set gap between bars manually in px, :default=2
-        .gap(1)
-        // (optional) set filter brush rounding
-        .round(dc.round.floor)
-        .alwaysUseRounding(true)
-        .x(d3.scale.linear().domain([0,max_conservation]))
-        .xAxisLabel('% of alignment conservation')
-        .yAxisLabel('Number of families')
-        .renderHorizontalGridLines(true)
-
-// domain coverage
-
-var domain_coverage = ndx_treefam.dimension(function (d) {return d.domain_coverage;});
-var domainCoverageGroup = domain_coverage.group();
-
-domainCoverageChart.width(350)
-        .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 40})
-        .dimension(domain_coverage)
-        .group(domainCoverageGroup)
-        .elasticY(true)
-        // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-        .centerBar(true)
-        // (optional) set gap between bars manually in px, :default=2
-        .gap(1)
-        // (optional) set filter brush rounding
-        .round(dc.round.floor)
-        .alwaysUseRounding(true)
-        .x(d3.scale.linear().domain([0,100]))
-        .xAxisLabel('% pfam residue coverage')
-        .yAxisLabel('Number of families')
-        .renderHorizontalGridLines(true)
-
-
-var rootTaxon_dim = ndx_treefam.dimension(function (d) {return d.rootTaxon;});
-var rootTaxon_grp = rootTaxon_dim.group();
-rootChart.width(280) // (optional) define chart width, :default = 200
-                .height(550) // (optional) define chart height, :default = 200
-                .dimension(rootTaxon_dim) // set dimension
-                .group(rootTaxon_grp) // set group
-                .elasticX(true)
-                .labelOffsetX(1)
-                //.xAxisLabel('Number of families')
-                .margins({top: 20, left: 10, right: 10, bottom: 20});
-
-
-var modelOrganism_dim = ndx_treefam.dimension(function (d) {return d.modelOrga;});
-var modelOrganism_grp = modelOrganism_dim.group();
-modelOrganismChart.width(280) // (optional) define chart width, :default = 200
-                .height(400) // (optional) define chart height, :default = 200
-                .dimension(modelOrganism_dim) // set dimension
-                .group(modelOrganism_grp) // set group
-                .elasticX(true)
-                .labelOffsetX(1)
-                //.xAxisLabel('Number of families')
-                .margins({top: 20, left: 10, right: 10, bottom: 20});
-
-var sizeDim = ndx_treefam.dimension(function(d) {return d.geneCount;});
-var percentDim = sizeDim.group().reduceSum(function(d) {return d.percentIdentity;}); 
-
-var max_size = d3.max(treefam_data, function(d) { return d.geneCount;  });
-var min_size = d3.min(treefam_data, function(d) { return d.geneCount;  });
-
-// familiesBubbleChart
-//         .width(600) // (optional) define chart width, :default = 200
-//         .height(250)  // (optional) define chart height, :default = 200
-//         .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
-//         .margins({top: 10, right: 50, bottom: 30, left: 40})
-//         .dimension(sizeDim)
-//         //Bubble chart expect the groups are reduced to multiple values which would then be used
-//         //to generate x, y, and radius for each key (bubble) in the group
-//         .group(percentDim)
-//         .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
-//         .colorDomain([-500, 500]) //(optional) define color domain to match your data domain if you want to bind data or color
-//         //Accessor functions are applied to each value returned by the grouping
-//         //
-//         //* `.colorAccessor` The returned value will be mapped to an internal scale to determine a fill color
-//         //* `.keyAccessor` Identifies the `X` value that will be applied against the `.x()` to identify pixel location
-//         //* `.valueAccessor` Identifies the `Y` value that will be applied agains the `.y()` to identify pixel location
-//         //* `.radiusValueAccessor` Identifies the value that will be applied agains the `.r()` determine radius size, by default this maps linearly to [0,100]
-//         .colorAccessor(function (d) {
-//             if(d.rootTaxon === "Eukaryota"){
-//                 return 1;
-//             }
-//             else{
-//                 return 0;
-//             }
-//             return d.value.absGain;
-//         })
-//         //.maxBubbleRelativeSize(0.3)
-//         .x(d3.scale.linear().domain([0, max_gene_count]))
-//         .y(d3.scale.linear().domain([0, 110]))
-//         //.r(d3.scale.linear().domain([0, 4]))
-//         .radiusValueAccessor(function(d) {
-//                     return 0.0003;
-//                     })
-//         //.elasticY(true)
-//         //.elasticX(true)
-//         .label(function (p) {
-//             return p.value;
-//         })
-//         .xAxisLabel('Gene members') // (optional) render an axis label below the x axis
-//         .yAxisLabel('Alignment conservation') // (optional) render an axis label below the x axis
-// ;
-
-var datatable   = dc.dataTable("#dc-data-familiestable");
-datatable
-    .dimension(sizeDim)
-    .group(function(d) {return d.geneCount;})
-    .columns([
-        function(d) { return d.modelName },
-        function(d) {return d.geneCount;},
-        function(d) {return d.alnLength;},
-        function(d) {return d.percentIdentity;},        
-        function(d) {return d.rootTaxon;},
-        function(d) {return d.coverage;}
-    ]);
-
-//var famSizeDim = ndx_treefam.dimension(function(d) {return d.numberClass;});
-// var famSizeDim = ndx_treefam.dimension(function(d) {return d.geneCount;});
-// var percentDim = famSizeDim.group().reduceSum(function(d) {return d.percentIdentity;}); 
-// familieslineChart
-//             .width(700).height(300)
-//             .dimension(famSizeDim)
-//             .group(percentDim)
-//             .yAxisLabel("Alignment conservation")  
-//             .x(d3.scale.linear().domain([0,max_gene_count]))
-//             //.elasticX(true)
-//             .brushOn(true)
-//             .title(function(d){
-//                             return d.modelName
-//                                     + "\nGenes: " + d.geneCount;
-//                         })
-//             ; 
-var fluctuation = ndx_treefam.dimension(function (d) {
-        return d.geneCount;
-    });
-var fluctuationGroup = fluctuation.group();
-fluctuationChart.width(700)
-        .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 40})
-        .dimension(fluctuation)
-        .group(fluctuationGroup)
-        .elasticY(true)
-
-        // (optional) whether bar should be center to its x value. Not needed for ordinal chart, :default=false
-        //.centerBar(true)
-        // (optional) set gap between bars manually in px, :default=2
-        .gap(1)
-        // (optional) set filter brush rounding
-        .round(dc.round.floor)
-        .alwaysUseRounding(true)
-        .x(d3.scale.linear().domain([0,max_gene_count]))
-        .xAxisLabel('Family size')
-        .yAxisLabel('Number of families')
-        .renderHorizontalGridLines(true)
-        // customize the filter displayed in the control span
-        //.filterPrinter(function (filters) {
-        //    var filter = filters[0], s = "";
-        //    s += numberFormat(filter[0]) + "% -> " + numberFormat(filter[1]) + "%";
-        //    return s;
-        //        })
-;
-
-
-//.label(function(d) {return d.data.key;});
-
-//blaaa
-
-// var ndx = crossfilter(data); 
-// var parseDate = d3.time.format("%m/%d/%Y").parse;
-//     data.forEach(function(d) {
-//         d.date = parseDate(d.date);
-//         //d.total= d.http_404+d.http_200+d.http_302;
-// });
-// print_filter("data");  
-
-
-// var  dateDim = ndx.dimension(function(d) {return d.date;});
-// var hits = dateDim.group().reduceSum(function(d) {return d.total;}); 
-// print_filter("hits");
-
-// var minDate = dateDim.bottom(1)[0].date;
-// var maxDate = dateDim.top(1)[0].date;
-
-// var hitslineChart  = dc.lineChart("#chart-line-hitsperday"); 
-
-// //hitslineChart
-//   //  .width(500).height(200)
-//    // .dimension(dateDim)
-//    // .group(hits)
-//    // .yAxisLabel("Hits per day")  
-//    // .x(d3.time.scale().domain([minDate,maxDate])); 
-
-
-// //hitslineChart.brushOn(false);
-
-
-// data.forEach(function(d) {
-//     //d.date = parseDate(d.date);
-//     d.total= d.http_404+d.http_200+d.http_302;
-//         d.Year=d.date.getFullYear();
-// }); 
-// var yearDim  = ndx.dimension(function(d) {return +d.Year;});
-
-// var year_total = yearDim.group().reduceSum(function(d) {return d.hits;});
-// //var year_total = yearDim.group().reduceSum(function(d) {return d.total;});
-
-// var yearRingChart   = dc.pieChart("#chart-ring-year");
-// yearRingChart
-//     .width(150).height(150)
-//     .dimension(yearDim)
-//     .group(year_total)
-//     .innerRadius(30); 
-
-// //var status_200=dateDim.group().reduceSum(function(d) {return d.http_200;});
-// //var status_302=dateDim.group().reduceSum(function(d) {return d.http_302;});
-// //var status_404=dateDim.group().reduceSum(function(d) {return d.http_404;});
-
-// var status_200=dateDim.group().reduceSum(function(d) 
-//    {if (d.status==='http_200') {return d.hits;}else{return 0;}});
-// var status_302=dateDim.group().reduceSum(function(d) 
-//    {if (d.status==='http_302') {return d.hits;}else{return 0;}});
-// var status_404=dateDim.group().reduceSum(function(d) 
-//    {if (d.status==='http_404') {return d.hits;}else{return 0;}}); 
-
-// var tableGroup = dateDim.group().reduce(
-//   function reduceAdd(p,v) {
-//     p[v.status] = v.hits;
-//     p["Year"]= v.Year;
-//     return p;
-//   },
-//   function reduceRemove(p,v) {
-//     p[v.status] = 0;
-//     p["Year"]=v.Year;
-    
-//     return p;
-//   },
-//   function reduceInitial() { return {}; }
-//   ); 
-
-
-// hitslineChart
-//    .width(500).height(200)
-//    .dimension(dateDim)
-//    .group(status_200,"200")
-//    .stack(status_302,"302")
-//    .stack(status_404,"404")   
-//    .renderArea(true)
-//    .x(d3.time.scale().domain([minDate,maxDate]))
-//    .brushOn(false)
-//    .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
-//    .yAxisLabel("Hits per day")
-//    .elasticX(true)
-//    .title(function(d){ return getvalues(d);} ) 
-//    .margins({ top: 10, left: 50, right: 10, bottom: 50 })    
-//     .legend(dc.legend().x(60).y(10).itemHeight(13).gap(5))
-//     .renderlet(function (chart) {chart.selectAll("g.x text").attr('dx', '-30').attr('dy', '-7').attr('transform', "rotate(-90)");})  ;
-
-
-// var datatable   = dc.dataTable("#dc-data-table");
-// /*datatable
-//     .dimension(dateDim)
-//     .group(function(d) {return d.Year;})
-//     .columns([
-//         function(d) { return d.date.getDate() + "/" + (d.date.getMonth() + 1) + "/" + d.date.getFullYear(); },
-//         function(d) {return d.http_200;},
-//         function(d) {return d.http_302;},
-//         function(d) {return d.http_404;},        
-//         function(d) {return d.total;}
-//     ]);
-// */
-// datatable
-//     .dimension(tableGroup)
-//     .group(function(d) {return d.value.Year;})
-//     .columns([
-//         function(d) {return d.key.getDate() + "/" + 
-//              (d.key.getMonth() + 1) + "/" + d.key.getFullYear(); },
-//         function(d) {return d.value.http_200;},
-//         function(d) {return d.value.http_302;},
-//         function(d) {return d.value.http_404;},
-//         function(d) {return d.value.http_200+d.value.http_302+d.value.http_404;}
-//     ]); 
-// /************
-// Status Ring
-// *************/
-// var statusRingChart   = dc.pieChart("#chart-ring-status");
-// var statusDim  = ndx.dimension(function(d) {return d.status;});
-// var hit_status = statusDim.group().reduceSum(function(d) {return d.hits;});
-
-// statusRingChart
-//     .width(150).height(150)
-//     .dimension(statusDim)
-//     .group(hit_status)
-//     .innerRadius(30); 
-
-
-// /************
-// JQuery updates
-// *************/
-
-// jQuery('#chart-ring-year').on('click', function(){
-//     var minDate2 = dateDim.bottom(1)[0].date;
-//     var maxDate2 = dateDim.top(1)[0].date;
-//     hitslineChart.x(d3.time.scale().domain([minDate2,maxDate2]));
-//     hitslineChart.redraw();
-// });
-
-
-
-
-/*var treefam_data = [
-{"modelName":"TF105088", "hgncSymbol":"CYP4", "geneCount":1362, "percentIdentity":33,"alnLength":7343,"rootTaxon":"Eukaryota","description":"cytochrome P450, family 4"},
-{"modelName":"TF105310", "hgncSymbol":"WNT", "geneCount":1289, "percentIdentity":43,"alnLength":4109,"rootTaxon":"Metazoa","description":"wingless-type MMTV integration site family"},
-{"modelName":"TF106341", "hgncSymbol":"TBX", "geneCount":1244, "percentIdentity":40,"alnLength":5890,"rootTaxon":"Metazoa","description":"T-box transcription factor"},
-{"modelName":"TF105087", "hgncSymbol":"CYP3/5A", "geneCount":1193, "percentIdentity":31,"alnLength":5892,"rootTaxon":"Eukaryota","description":"cytochrome P450, family 3/5, subfamily A"},
-{"modelName":"TF105391", "hgncSymbol":"ITGA", "geneCount":1051, "percentIdentity":28,"alnLength":8041,"rootTaxon":"Metazoa","description":"integrin, alpha"},
-{"modelName":"TF102023", "hgncSymbol":"CASP", "geneCount":948, "percentIdentity":31,"alnLength":3333,"rootTaxon":"Metazoa","description":"caspase family, apoptosis-related cysteine protease"},
-{"modelName":"TF106492", "hgncSymbol":"AKR1", "geneCount":897, "percentIdentity":45,"alnLength":3976,"rootTaxon":"Eukaryota","description":"Aldo-keto reductase family 1"},
-{"modelName":"TF105452", "hgncSymbol":"ANXA", "geneCount":881, "percentIdentity":42,"alnLength":3703,"rootTaxon":"Eukaryota","description":"annexin"},
-{"modelName":"TF106338", "hgncSymbol":"GUCY/NPR1/2", "geneCount":859, "percentIdentity":38,"alnLength":26309,"rootTaxon":"Opisthokonta","description":"guanylate cyclase"}
-];
-*/
-
-//  var ndx = crossfilter(treefam_data);
-//  var no_families = ndx.size();
-//  console.log(no_families);
-
-// var sizeDim = ndx.dimension(function(d) {return d.geneCount;});
-// var percentDim = sizeDim.group().reduceSum(function(d) {return d.percentIdentity;}); 
-
-// var max_size = d3.max(treefam_data, function(d) { return d.geneCount;  });
-// var min_size = d3.min(treefam_data, function(d) { return d.geneCount;  });
-// print_filter("sizeDim");
-// print_filter("percentDim");
-
-
-// var familieslineChart  = dc.lineChart("#chart-line-families"); 
-// familieslineChart
-//     .width(700).height(300)
-//     .dimension(sizeDim)
-//     .group(percentDim)
-//     .yAxisLabel("Alignment conservation")  
-//     .x(d3.scale.linear().domain([0,1400]))
-//     //.elasticX(true)
-//     .brushOn(true)
-//     .title(function(d){
-//                     return d.modelName
-//                             + "\nGenes: " + d.geneCount;
-//                 })
-//     ; 
-// var familiesBubbleChart  = dc.bubbleChart("#families-bubble-chart"); 
-// familiesBubbleChart
-//         .width(990) // (optional) define chart width, :default = 200
-//         .height(250)  // (optional) define chart height, :default = 200
-//         .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
-//         .margins({top: 10, right: 50, bottom: 30, left: 40})
-//         .dimension(sizeDim)
-//         //Bubble chart expect the groups are reduced to multiple values which would then be used
-//         //to generate x, y, and radius for each key (bubble) in the group
-//         .group(percentDim)
-//         .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
-//         .colorDomain([-500, 500]) //(optional) define color domain to match your data domain if you want to bind data or color
-//         //Accessor functions are applied to each value returned by the grouping
-//         //
-//         //* `.colorAccessor` The returned value will be mapped to an internal scale to determine a fill color
-//         //* `.keyAccessor` Identifies the `X` value that will be applied against the `.x()` to identify pixel location
-//         //* `.valueAccessor` Identifies the `Y` value that will be applied agains the `.y()` to identify pixel location
-//         //* `.radiusValueAccessor` Identifies the value that will be applied agains the `.r()` determine radius size, by default this maps linearly to [0,100]
-//         .colorAccessor(function (d) {
-//             if(d.rootTaxon === "Eukaryota"){
-//                 return 1;
-//             }
-//             else{
-//                 return 0;
-//             }
-//             return d.value.absGain;
-//         })
-//         //.maxBubbleRelativeSize(0.3)
-//         .x(d3.scale.linear().domain([0, 2500]))
-//         .y(d3.scale.linear().domain([0, 100]))
-//         //.r(d3.scale.linear().domain([0, 4]))
-//         .radiusValueAccessor(function(d) {
-//                     return 0.0003;
-//                     })
-//         //.elasticY(true)
-//         //.elasticX(true)
-//         .label(function (p) {
-//             return p.value;
-//         })
-//         .xAxisLabel('Gene members') // (optional) render an axis label below the x axis
-//         .yAxisLabel('Alignment conservation') // (optional) render an axis label below the x axis
-// ;
-
- 
-// var datatable   = dc.dataTable("#dc-data-familiestable");
-// datatable
-//     .dimension(sizeDim)
-//     .group(function(d) {return d.geneCount;})
-//     .columns([
-//         function(d) { return d.modelName },
-//         function(d) {return d.geneCount;},
-//         function(d) {return d.alnLength;},
-//         function(d) {return d.percentIdentity;},        
-//         function(d) {return d.rootTaxon;}
-//     ]);
-
-
-
-dc.renderAll(); 
-
-window.rootfilter = function(filters) {
-    rootChart.filter('Vertebrata');
-    dc.renderAll();
-  };
-
-window.familiesfilter = function(filters) {
-    fluctuationChart.filter([100,109]);
-    dc.renderAll();
-  };
-
-
-});
-</script>
-<!--<script type="text/javascript" src="treefam_crossfilter.js"></script>-->
+<script type="text/javascript" src="js/treefam_crossfilter.js"></script>
 
 </body>
 </html>

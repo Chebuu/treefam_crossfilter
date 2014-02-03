@@ -66,6 +66,10 @@ div.dc-chart {
     font: 10px sans-serif;
 }
 
+.x-axis-label,.y-axis-label {
+    font: 10px sans-serif;
+}
+
 .dc-chart .grid-line {
     fill: none;
     stroke: #ccc;
@@ -205,7 +209,7 @@ div.dc-chart {
 }
 
 .dc-chart g.row text {
-    fill: white;
+    fill: black;
     font-size: 12px;
     cursor: pointer;
 }
@@ -305,4 +309,12 @@ div.dc-chart {
 .dc-chart .heatmap g.axis text {
     pointer-events: all;
     cursor: pointer;
+}
+.chart-title {
+font-family: 'Lato', futura, georgia;
+letter-spacing: 1px;
+line-height: 15px;
+text-transform: Uppercase;
+text-align: center;
+color: #525252;
 }
