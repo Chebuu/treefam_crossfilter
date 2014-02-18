@@ -7,170 +7,344 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+
 <!-- <link href="http://colmmcdonnell.github.io/ppr/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <link rel="stylesheet" type="text/css" href="css/dc.css"/>
 
 </head>
 <body>
-
-
-<div class="container">
-
-
-<!-- <div id="chart-line-hitsperday"></div>
-<div id="chart-ring-status"></div>
-<div id="chart-ring-year"></div>
- -->
 <!-- 
-<div style='clear:both;'>
-        <table id="dc-data-table">
-            <thead>
-            <tr class="header">
-                <th>Day</th>
-                <th>TPS 200</th>
-                <th>TPS 302</th>
-                <th>TPS Total</th>
-            </tr>
-            </thead>
-        </table>
-</div> 
-<br> -->
-<h3>TreeFam families</h3>
-There are <span id="total_families"></span> families in this dataset. Click and drag and watch the graphs move and then when that gets old see ....
-<ol>
- <li>How many <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families are there?</li>
- <li>Show me all families with <a href="javascript:familiesfilter([90,120])">~1 gene/species</a></li>
- <li>Which are the <a href="javascript:alignmentfilter([80, 100])">highly-conserved</a> families (alignment conservation >= 85%)?</li>
- </ol>
- <hr>
- <div class="dc-data-count">
-                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
-                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-                    </div>        
 <div class="container">
     <div class="row clearfix">
+        <div class="col-md-12 column" id="crossfilter_div">
+                 <h3>TreeFam families</h3>
+                            There are <span id="total_families"></span> families in this dataset. Click and drag and watch the graphs move and then when that gets old see ....
+                            <ol>
+                             <li>How many <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families are there?</li>
+                             <li>Show me all families with <a href="javascript:familiesfilter([90,120])">~1 gene/species</a></li>
+                             <li>Which are the <a href="javascript:alignmentfilter([80, 100])">highly-conserved</a> families (alignment conservation >= 85%)?</li>
+                             <li>How many families with <a href="javascript:alignmentfilter([80, 100])">many Pfam annotations</a> are there?</li>
+                             </ol>
+                 <div class="alert alert-success">Tips:
+                        <ul>
+                            <li>Use the mouse to drag & select a range families.</li>
+                            <li>You can select several entities and they will be "OR" linked. <br>E.g. selecting "Diptera"  and "Vertebrata" will show families that are either exclusive to Diptera or Vertebrata</li>
+                            <li>You will find the 'reset all' button to reset all filters on the top of the page.</li>
+                        </ul>
+                </div>
+                <hr>
+                <div id="tree_spinner"><img src="http://www.ebi.ac.uk/~fs/d3treeviewer/data/images/loadinfo.net.gif" alt="Loading tree" height="22" width="22">Loading families data...</div>
 
-                <!-- <div class="col-md-12 column" id="fluctuation-chart">
-                        <span class="chart-title">Family size</span>
+                     <h3>Gene Families</h3>
+                    <div class="dc-data-count">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a><br>
+                    </div>  
+                    <div id="fluctuation-chart">
+                        <span class="chart-title">Family size</span> <span id="tipsy_family" class="glyphicon glyphicon-info-sign"></span><br>
                         <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                        <div class="clearfix"></div>
-                 --></div>
-        <div class="col-md-8 column">
-            <h3>Gene Families</h3>
-            <div id="fluctuation-chart">
-                        <span class="chart-title">Family size</span><br>
+                    </div>
+            <div class="row clearfix">
+                <div class="col-md-8 column">
+                    <div class="row clearfix">
+                        <div class="col-md-6 column" id="conservation-chart">
+                                        <span class="chart-title">Alignment conservation</span> <span id="tipsy_alignment" class="glyphicon glyphicon-info-sign"></span><br>
+                                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                        </div>
+                        <div class="col-md-6 column" id="pfam_coverage-chart">
+                                    
+                                     <span class="chart-title">Pfam coverage</span> 
+                                    <span id="tipsy_pfam" class="glyphicon glyphicon-info-sign"></span><br>
+                                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    
+                               
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column" id="species_count-chart">
+                        </div>
+                        <div class="col-md-6 column" id="modelOrganism_chart">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column" id="human_genes-chart">
+                        </div>
+                        <div class="col-md-6 column" id="mouse_genes-chart">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 column">
+                        <div id="org-chart">
+                            <span class="chart-title">Taxonomic root of families</span> <span id="tipsy_tax_root" class="glyphicon glyphicon-info-sign"></span>
+                            <a  href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">(reset)</a>
+                        </div>
+                </div>
+            </div>
+            <div class="dc-data-count2">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                </div> 
+                    <table class="dc-data-table table table-hover table-condensed table-striped dc-chart" id="dc-data-familiestable">
+                    <thead>
+                    <tr class="header">
+                         <th>family name</th> 
+                        <th>members</th>
+                        <th>alignment length</th>
+                        <th>conservation</th>
+                        <th>Root</th>
+                    </tr>
+                    </thead>    
+                    </table>
+        </div>
+    </div>
+</div> -->
+
+<!-- 
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h3>TreeFam families</h3>
+                There are <span id="total_families"></span> families in this dataset. Click and drag and watch the graphs move and then when that gets old see ....
+                <ol>
+                 <li>How many <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families are there?</li>
+                 <li>Show me all families with <a href="javascript:familiesfilter([90,120])">~1 gene/species</a></li>
+                 <li>Which are the <a href="javascript:alignmentfilter([80, 100])">highly-conserved</a> families (alignment conservation >= 85%)?</li>
+                 <li>How many families with <a href="javascript:alignmentfilter([80, 100])">many Pfam annotations</a> are there?</li>
+                 </ol>
+            <div class="alert alert-success">Tips:
+                <ul>
+                    <li>Use the mouse to drag & select a range families.</li>
+                    <li>You can select several entities and they will be "OR" linked. <br>E.g. selecting "Diptera"  and "Vertebrata" will show families that are either exclusive to Diptera or Vertebrata</li>
+                    <li>You will find the 'reset all' button to reset all filters on the top of the page.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column" id="crossfilter_div">
+                     <div id="tree_spinner"><img src="http://www.ebi.ac.uk/~fs/d3treeviewer/data/images/loadinfo.net.gif" alt="Loading tree" height="22" width="22">Loading families data...</div>
+
+                     <h3>Gene Families</h3>
+                    <div class="dc-data-count">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a><br>
+                    </div>  
+                    <div id="fluctuation-chart">
+                        <span class="chart-title">Family size</span> <span id="tipsy_family" class="glyphicon glyphicon-info-sign"></span><br>
                         <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    </div>
+            <div class="row clearfix">
+                <div class="col-md-8 column">
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                                <div id="conservation-chart" >
+                                    <span class="chart-title">Alignment conservation</span> <span id="tipsy_alignment" class="glyphicon glyphicon-info-sign"></span><br>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    </div>
+                        </div>
+                        <div class="col-md-6 column">
+                            <div id="pfam-chart" >
+                                    <span class="chart-title">Pfam coverage</span> <span id="tipsy_pfam" class="glyphicon glyphicon-info-sign"></span><br>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            </div>
+                            <div class="col-md-4 column" id="pfam-chart" >
+                        <span class="chart-title">Pfam coverage</span> <span id="tipsy_pfam" class="glyphicon glyphicon-info-sign"></span><br>
+                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                        
                         <div class="clearfix"></div>
                 </div>
-            <div class="row clearfix">
-                <!-- <div id="fluctuation-chart">
-                        <strong>Family size</strong>
-                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <div id="species_count-chart">
+                                <span class="chart-title">Number of species / family</span> <span id="tipsy_species" class="glyphicon glyphicon-info-sign"></span><br>
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 column">
+                            <div id="modelOrganism_chart">
+                                <span class="chart-title">Total number of model organisms genes</span> <span id="tipsy_modorga" class="glyphicon glyphicon-info-sign"></span><br>
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <div id="human_genes-chart">
+                                    <span class="chart-title">Human genes</span><br>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6 column">
+                            <div id="mouse_genes-chart">
+                                <span class="chart-title">Mouse genes</span><br>
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-4 column">
+                    <div id="org-chart">
+                        <span class="chart-title">Taxonomic root of families</span> <span id="tipsy_tax_root" class="glyphicon glyphicon-info-sign"></span>
+                        <a  href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">(reset)</a>
                         <div class="clearfix"></div>
-                </div> -->
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+                <div class="dc-data-count2">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                        href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                </div>       
+                <div class="row clearfix"></div>
+            
+                <h4>Selected families</h4>
+                <div class="col-md-12 column">
+                    <table class="dc-data-table table table-hover table-condensed table-striped dc-chart" id="dc-data-familiestable">
+                    <thead>
+                    <tr class="header">
+                         <th>family name</th> 
+                        <th>members</th>
+                        <th>alignment length</th>
+                        <th>conservation</th>
+                        <th>Root</th>
+                    </tr>
+                    </thead>    
+                    </table>
+                    
+                </div>
+        </div>
+    </div>
+</div>
+
+ -->
+<!-- <div class="col-md-4 column" id="pfam-chart" > -->
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="col-md-12 column" id="crossfilter_div">
+                <h3>TreeFam families</h3>
+                There are <span id="total_families"></span> families in this dataset. Click and drag and watch the graphs move and then when that gets old see ....
+                        <ol>
+                         <li>How many <a href="javascript:rootfilter('Vertebrata')">Vertebrate</a> families are there?</li>
+                         <li>Show me all families with <a href="javascript:familiesfilter([90,120])">~1 gene/species</a></li>
+                         <li>Which are the <a href="javascript:alignmentfilter([80, 100])">highly-conserved</a> families (alignment conservation >= 85%)?</li>
+                         <li>How many families with <a href="javascript:alignmentfilter([80, 100])">many Pfam annotations</a> are there?</li>
+                         </ol>
+                <div class="alert alert-success">Tips:
+                    <ul>
+                        <li>Use the mouse to drag & select a range families.</li>
+                        <li>You can select several entities and they will be "OR" linked. <br>E.g. selecting "Diptera"  and "Vertebrata" will show families that are either exclusive to Diptera or Vertebrata</li>
+                        <li>You will find the 'reset all' button to reset all filters on the top of the page.</li>
+                    </ul>
+                </div>
+         <hr>
+        <div id="tree_spinner"><img src="http://www.ebi.ac.uk/~fs/d3treeviewer/data/images/loadinfo.net.gif" alt="Loading tree" height="22" width="22">Loading families data...</div>
+        <h3>Gene Families</h3>
+            <div class="dc-data-count">
+                                <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+            </div>        
+            <div class="row clearfix"></div>
+                            <div id="fluctuation-chart">
+                                    <span class="chart-title">Family size</span> <span id="tipsy_family" class="glyphicon glyphicon-info-sign"></span><br>
+                                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                    <div class="clearfix"></div>
+                            </div>
+            
+        <div class="col-md-8 column">
+            <div class="row clearfix">
+               
                 <div class="col-md-6 column">
                             <div id="conservation-chart" >
-                            <span class="chart-title">Alignment conservation</span><br>
+                            <span class="chart-title">Alignment conservation</span> <span id="tipsy_alignment" class="glyphicon glyphicon-info-sign"></span><br>
                             <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
                             </div>
                 </div>
-                
-                
+                <div class="col-md-6 column" id="pfam-chart" >
+                        <span class="chart-title">Pfam coverage</span> <span id="tipsy_pfam" class="glyphicon glyphicon-info-sign"></span><br>
+                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                        <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <h3>Species</h3>
                 <div class="col-md-6 column" id="species_count-chart">
-                    <span class="chart-title">No of species</span><br>
+                    <span class="chart-title"># of species / family</span> <span id="tipsy_species" class="glyphicon glyphicon-info-sign"></span><br>
                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
                 </div>
-                <!-- <div class="col-md-6 column" id="Alignment_length-chart" >
-                        <span class="chart-title">Species counterage</span>
-                        <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                        <div class="clearfix"></div>
-                </div> -->
+                <div class="col-md-6 column" id="modelOrganism_chart">
+                    <span class="chart-title"># model organisms genes</span> <span id="tipsy_modorga" class="glyphicon glyphicon-info-sign"></span><br>
+                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <div class="clearfix"></div>
+                </div>
             </div>
-            <h3>Model organism</h3>
+            
+        </div>
+        <div class="col-md-4 column">
+                <div id="org-chart">
+                    <span class="chart-title">Taxonomic root of families</span> <span id="tipsy_tax_root" class="glyphicon glyphicon-info-sign"></span>
+                    <a  href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">(reset)</a>
+                    <div class="clearfix"></div>
+                </div> 
+        </div>
+    </div>
+    <h4>Model organisms</h4>
             <div class="row clearfix">
-                
                 <div class="col-md-4 column" id="human_genes-chart">
                     <span class="chart-title">Human genes</span><br>
                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                 </div>
                 <div class="col-md-4 column" id="mouse_genes-chart">
                     <span class="chart-title">Mouse genes</span><br>
                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                 </div>
                 <div class="col-md-4 column" id="zebrafish_genes-chart">
                     <span class="chart-title">Zebrafish genes</span><br>
                     <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                 </div>
-
-
-
-                <!-- <span class="chart-title">Evolutionary speed</span>
-                <div class="col-md-6 column" id="pie5NetworkSize"></div> -->
-                <div class="clearfix"></div>
-                <div id="monthly-move-chart" class="dc-chart col-md-8 column">
-                    <strong>Model organisms</strong>
-                    <span class="reset" style="display: none;">range: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:moveChart.filterAll();volumeChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                </div>
-                <div class="row">
-                    <div id="monthly-volume-chart"> </div>
-                    <p class="muted pull-right" style="margin-right: 15px;">select a range of no of model orga genes/family</p>
-                </div>
-
             </div>
-            
-        
-
-        <div class="clearfix"></div>
-
-            <!-- <div class="row clearfix"> -->
-                <div class="col-md-8 column">
-                   <!--  <div class="dc-data-count">
+    <div class="dc-data-count2">
                         <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
                         href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-                    </div>         -->
-
-                <table class="dc-data-table table table-hover table-condensed table-striped dc-chart" id="dc-data-familiestable">
-                <thead>
-                <tr class="header">
-                    <th>model name</th>
-                    <th>members</th>
-                    <th>alignment length</th>
-                    <th>conservation</th>
-                    <th>Root</th>
-                    <th>Coverage</th>
-                </tr>
-                </thead>
-                </table>
-                    <!-- <div id="families-bubble-chart"></div>         -->
+    </div>       
+    <div class="row clearfix"></div>
+                        <h4>Selected families</h4>
+                <div class="col-md-12 column">
+                    <table class="dc-data-table table table-hover table-condensed table-striped dc-chart" id="dc-data-familiestable">
+                    <thead>
+                    <tr class="header">
+                         <th>family name</th> 
+                        <th>members</th>
+                        <th>alignment length</th>
+                        <th>conservation</th>
+                        <th>Root</th>
+                        
+                    </tr>
+                    </thead>    
+                    </table>
                 </div>
-             
-        </div>
-        <div class="col-md-4 column">
-                <div id="org-chart">
-                    <span class="chart-title">Taxonomic birth</span>
-                    <a  href="javascript:dc.filterAll();dc.redrawAll();" style="display: none;">(reset)</a>
-                    <div class="clearfix"></div>
-                </div>   
-        </div>
-
-    </div>
 
             </div>
-</div>
-</div>
 
 <!-- <script type="text/javascript" src="js/d3.js"></script> -->
 <script language="JavaScript" type="text/javascript" src="http://www.treefam.org/static/javascripts//d3/d3.v3.min.js"></script>
@@ -179,11 +353,15 @@ There are <span id="total_families"></span> families in this dataset. Click and 
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="http://dev.treefam.org/static/javascripts/jquery/jquery.tipsy.js"></script>   
+<link href="http://dev.treefam.org/static/css/jquery/tipsy.css" rel="stylesheet" type="text/css" />   
 <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
+
 <!-- <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script> -->
 <script type="text/javascript" src="js/dc.js"></script>
+<script type="text/javascript" src="js/d3.tip.min.js"></script>
 <!-- <script type="text/javascript" src="http://jeroenooms.github.io/dashboard/snack/lib/dc/dc.min.js"></script> -->
 
 <script type="text/javascript" src="js/melt.js"></script>
